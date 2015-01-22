@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
+    "prestart": "npm run build",
     "start": "node server.js",
     "build:js": "./node_modules/browserify/bin/cmd.js app/scripts/main.js | ./node_modules/uglify-js/bin/uglifyjs > public/main.js",
     "build:css": "./node_modules/node-sass/bin/node-sass app/styles/main.scss public/main.css --output-style compressed",
@@ -16,5 +17,8 @@
     "browserify": "^8.1.1",
     "node-sass": "^2.0.0-beta",
     "uglify-js": "^2.4.16"
+  },
+  "dependencies": {
+    "ws": "^0.7.0"
   }
 }

@@ -1,13 +1,17 @@
 var http = require('http'),
-fs = require('fs');
+    fs = require('fs'),
+    ws = require('ws');
 
-var port = 8888;
+var httpPort = 8888,
+    wsPort = 8080;
+
+// WEB SERVER ----------------------------------------
 
 http.createServer(function (req, res) {
     var filename = './public' + req.url;
     fs.exists(filename, function (exists) {
         if (!exists) {
-            console.log('file does not exist', fileName);
+            console.error('[404]', filename);
             res.writeHead(404);
             res.end();
             return;
@@ -19,6 +23,17 @@ http.createServer(function (req, res) {
             res.end(data);
         });
     });
-}).listen(port);
+}).listen(httpPort);
+console.log('HTTP listening on', httpPort);
 
-console.log('listening on', port);
+// WEB SOCKET SERVER ----------------------------------------
+
+// var WebSocketServer = require('ws').Server,
+var wss = new ws.Server({port: wsPort});
+wss.on('connection', function (ws) {
+    ws.on('message', function (message) {
+        console.log('received: %s', message);
+    });
+    ws.send('something from the server');
+});
+console.log('WebSocket listening on', wsPort);
