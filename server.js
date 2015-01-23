@@ -30,8 +30,8 @@ console.log('HTTP listening on', httpPort);
 
 var wss = new ws.Server({port: wsPort});
 wss.on('connection', function (ws) {
-    ws.on('message', function (message) {
-        console.log('received: %s', message);
+    ws.on('message', function (msg) {
+        console.log('received: %s', msg);
     });
 
     // Send random fake bacon

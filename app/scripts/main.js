@@ -64,7 +64,7 @@ function BaconHandler(el) {
     // Public
 
     this.start = function () {
-        setInterval(rainBacon, 100);
+        setInterval(rainBacon, 1000);
     };
 
     this.receiveBacon = function (msg) {

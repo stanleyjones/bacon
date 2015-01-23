@@ -32,16 +32,16 @@ body {
 }
 
 @-webkit-keyframes rain {
-    0% {transform: translate(0, 0) rotate(0deg);}
-    100% {transform: translate(0, 100vh) rotate(360deg);}
+    0% {transform: translate(-50%, 0) rotate(0deg);}
+    100% {transform: translate(-50%, 100vh) rotate(360deg);}
 }
 
 @-moz-keyframes rain {
-    0% {transform: translate(0, 0) rotate(0deg);}
-    100% {transform: translate(0, 100vh) rotate(360deg);}
+    0% {transform: translate(-50%, 0) rotate(0deg);}
+    100% {transform: translate(-50%, 100vh) rotate(360deg);}
 }
 
 @keyframes rain {
-    0% {transform: translate(0, 0) rotate(0deg);}
-    100% {transform: translate(0, 100vh) rotate(360deg);}
+    0% {transform: translate(-50%, 0) rotate(0deg);}
+    100% {transform: translate(-50%, 100vh) rotate(360deg);}
 }
