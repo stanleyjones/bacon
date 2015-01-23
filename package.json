@@ -16,8 +16,7 @@
   "devDependencies": {
     "browserify": "^8.1.1",
     "node-sass": "^2.0.0-beta",
-    "uglify-js": "^2.4.16",
-    "velocity-animate": "^1.2.1"
+    "uglify-js": "^2.4.16"
   },
   "dependencies": {
     "ws": "^0.7.0"
