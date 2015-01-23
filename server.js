@@ -28,12 +28,18 @@ console.log('HTTP listening on', httpPort);
 
 // WEB SOCKET SERVER ----------------------------------------
 
-// var WebSocketServer = require('ws').Server,
 var wss = new ws.Server({port: wsPort});
 wss.on('connection', function (ws) {
     ws.on('message', function (message) {
         console.log('received: %s', message);
     });
-    ws.send('something from the server');
+
+    // Send random fake bacon
+    setInterval(function () {
+        ws.send(JSON.stringify({bacon: (10 * Math.random()).toFixed(2)}));
+    }, 1000);
+
 });
 console.log('WebSocket listening on', wsPort);
+
+// HELPERS ----------------------------------------
