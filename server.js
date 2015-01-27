@@ -1,9 +1,23 @@
 var http = require('http'),
+    kafka = require('kafka-node'),
     fs = require('fs'),
     ws = require('ws');
 
 var httpPort = 8888,
     wsPort = 8080;
+
+// KAFKA ----------------------------------------
+
+var client = new kafka.Client('sa-zk-001.high.caffeine.io:2181'),
+    consumer = new kafka.HighLevelConsumer(client, [{topic: 'json_transactions'}], {groupId: 'cb-kafka'});
+
+consumer.on('message', function (msg) {
+    console.log(this.id, msg);
+});
+
+consumer.on('error', function (err) {
+    console.error(err);
+});
 
 // WEB SERVER ----------------------------------------
 
