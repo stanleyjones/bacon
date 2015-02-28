@@ -14,12 +14,12 @@
   "author": "Stanley Jones <stanley@chartboost.com>",
   "license": "ISC",
   "devDependencies": {
-    "browserify": "^8.1.1",
-    "node-sass": "^2.0.0-beta",
+    "browserify": "^9.0.3",
+    "node-sass": "^2.0.1",
     "uglify-js": "^2.4.16"
   },
   "dependencies": {
-    "kafka-node": "^0.2.16",
-    "ws": "^0.7.0"
+    "kafka-node": "^0.2.20",
+    "ws": "^0.7.1"
   }
 }
