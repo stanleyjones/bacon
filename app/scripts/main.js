@@ -1,16 +1,17 @@
 // REQUIRES ----------------------------------------
 
+var socketDomain = 'localhost';
+var socketPort = 8080;
 
 // CONFIG ----------------------------------------
 
-var ws = new WebSocket('ws://localhost:8080/');
+var ws = new WebSocket('ws://' + socketDomain + ':' + socketPort + '/');
 var baconHandler = new BaconHandler('js-total');
-
 
 // MAIN ----------------------------------------
 
 ws.onopen = function () {
-    ws.send('something from the browser');
+    ws.send('[credentials]');
     baconHandler.start();
 };
 ws.onmessage = function (msg) {

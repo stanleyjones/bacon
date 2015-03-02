@@ -4,22 +4,23 @@
   "description": "A secret project to make bacon rain from the sky -- in real time.",
   "main": "server.js",
   "scripts": {
-    "test": "test",
-    "prestart": "npm run build",
     "start": "node server.js",
     "build:js": "./node_modules/browserify/bin/cmd.js app/scripts/main.js | ./node_modules/uglify-js/bin/uglifyjs > public/main.js",
     "build:css": "./node_modules/node-sass/bin/node-sass app/styles/main.scss public/main.css --output-style compressed",
-    "build": "npm run build:js && npm run build:css"
+    "build": "npm run build:js && npm run build:css",
+    "build:watch": "watch 'npm run build' app",
+    "serve": "npm run build:watch & http-server -p 8888 public/"
   },
   "author": "Stanley Jones <stanley@chartboost.com>",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^9.0.3",
     "node-sass": "^2.0.1",
-    "uglify-js": "^2.4.16"
+    "uglify-js": "^2.4.16",
+    "watch": "^0.14.0"
   },
   "dependencies": {
-    "kafka-node": "^0.2.20",
+    "http-server": "^0.7.5",
     "ws": "^0.7.1"
   }
 }
