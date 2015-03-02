@@ -1,17 +1,16 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'localhost';
-var socketPort = 8080;
+var socketDomain = 'd.caffeine.io';
+var socketPort = 8888;
 
 // CONFIG ----------------------------------------
 
-var ws = new WebSocket('ws://' + socketDomain + ':' + socketPort + '/');
+var ws = new WebSocket('ws://' + socketDomain + ':' + socketPort + '/account');
 var baconHandler = new BaconHandler('js-total');
 
 // MAIN ----------------------------------------
 
 ws.onopen = function () {
-    ws.send('[credentials]');
     baconHandler.start();
 };
 ws.onmessage = function (msg) {
@@ -65,11 +64,12 @@ function BaconHandler(el) {
     // Public
 
     this.start = function () {
+        console.log('starting...');
         setInterval(rainBacon, 1000);
     };
 
     this.receiveBacon = function (msg) {
-        buffer += parseFloat(msg.bacon) || 0;
+        buffer += parseFloat(msg.earnings) || 0;
         weighBacon();
     };
 
