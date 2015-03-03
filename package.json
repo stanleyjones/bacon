@@ -1,6 +1,6 @@
 {
   "name": "bacon",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A secret project to make bacon rain from the sky -- in real time.",
   "main": "server.js",
   "scripts": {
