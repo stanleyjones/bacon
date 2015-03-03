@@ -7,10 +7,17 @@ body {
     font: 300 48px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+a {
+    color: #591;
+    text-decoration: none;
+    &:hover { color: #7b3; }
+}
+
 .company {
     position: absolute;
     top: 0;
     left: 0;
+    width: calc(100vw - 100px);
     padding: 10px;
     font-size: 16px;
     color: #fff;
@@ -41,9 +48,6 @@ body {
     text-align: center;
     font-weight: 700;
     font-size: 18px;
-
-    -webkit-animation: rain 5s linear;
-    -moz-animation: rain 5s linear;
     animation: rain 5s linear;
 
     &:after {
@@ -102,8 +106,6 @@ body {
         left: -300px;
         height: 300px;
         width: 300px;
-        -webkit-animation: clouds 60s linear 0s infinite;
-        -moz-animation: clouds 60s linear 0s infinite;
         animation: clouds 60s linear 0s infinite;
     }
     &:nth-child(2) {
@@ -111,8 +113,6 @@ body {
         left: -250px;
         height: 250px;
         width: 250px;
-        -webkit-animation: clouds 50s linear 10s infinite;
-        -moz-animation: clouds 50s linear 10s infinite;
         animation: clouds 50s linear 10s infinite;
     }
     &:nth-child(3) {
@@ -120,8 +120,6 @@ body {
         left: -200px;
         height: 200px;
         width: 200px;
-        -webkit-animation: clouds 55s linear 20s infinite;
-        -moz-animation: clouds 55s linear 20s infinite;
         animation: clouds 55s linear 20s infinite;
     }
     &:nth-child(4) {
@@ -129,8 +127,6 @@ body {
         left: -300px;
         height: 300px;
         width: 300px;
-        -webkit-animation: clouds 60s linear 30s infinite;
-        -moz-animation: clouds 60s linear 30s infinite;
         animation: clouds 60s linear 30s infinite;
     }
     &:nth-child(5) {
@@ -138,35 +134,34 @@ body {
         left: -200px;
         height: 200px;
         width: 200px;
-        -webkit-animation: clouds 45s linear 40s infinite;
-        -moz-animation: clouds 45s linear 40s infinite;
         animation: clouds 45s linear 40s infinite;
     }
 }
 
-@-webkit-keyframes rain {
-    0% {transform: translate(-50%, 0) rotate(0deg);}
-    100% {transform: translate(-50%, 100vh) rotate(360deg);}
+.alert {
+    position: absolute;
+    top: 40vh;
+    left: 50vw;
+    width: auto;
+    max-width: 90vw;
+    padding: 25px;
+    font-size: 18px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.25);
+    &.-show {
+        opacity: 1;
+    }
 }
 
-@-moz-keyframes rain {
-    0% {transform: translate(-50%, 0) rotate(0deg);}
-    100% {transform: translate(-50%, 100vh) rotate(360deg);}
-}
 
 @keyframes rain {
     0% {transform: translate(-50%, 0) rotate(0deg);}
     100% {transform: translate(-50%, 100vh) rotate(360deg);}
-}
-
-@-webkit-keyframes clouds {
-    0% {transform: translate(0, 0);}
-    100% {transform: translate(calc(100vw + 300px), 0);}
-}
-
-@-moz-keyframes clouds {
-    0% {transform: translate(0, 0);}
-    100% {transform: translate(calc(100vw + 300px), 0);}
 }
 
 @keyframes clouds {

@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build:js": "./node_modules/browserify/bin/cmd.js app/scripts/main.js | ./node_modules/uglify-js/bin/uglifyjs > public/main.js",
-    "build:css": "./node_modules/node-sass/bin/node-sass app/styles/main.scss public/main.css --output-style compressed",
+    "build:js": "browserify app/scripts/main.js | uglifyjs > public/main.js",
+    "build:css": "node-sass app/styles/main.scss public/main.css --output-style compressed && autoprefixer public/main.css",
     "build": "npm run build:js && npm run build:css",
     "build:watch": "watch 'npm run build' app",
     "serve": "npm run build:watch & http-server public/"
@@ -14,6 +14,7 @@
   "author": "Stanley Jones <stanley@chartboost.com>",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^5.1.0",
     "browserify": "^9.0.3",
     "node-sass": "^2.0.1",
     "uglify-js": "^2.4.16",

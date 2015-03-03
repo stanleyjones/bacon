@@ -13,9 +13,16 @@ var baconHandler = new BaconHandler({
 
 // MAIN ----------------------------------------
 
+if (!readCookie('company_id')) { redirectAlert(); }
+
 ws.onopen = function () {
     baconHandler.start();
 };
+
+ws.onerror = function (msg) {
+    console.log('ws error:', msg.data);
+};
+
 ws.onmessage = function (msg) {
     baconHandler.receiveBacon(JSON.parse(msg.data));
 };
@@ -83,11 +90,33 @@ function BaconHandler(opts) {
 
     this.receiveBacon = function (msg) {
         var earnings = parseFloat(msg.earnings);
-        if (!total) { init(msg.company, earnings); }
+        var company = msg.company || '';
+
+        if (!total) { init(company, earnings); }
         buffer += earnings - total;
     };
 }
 
 function toCurrency(num) {
-    return parseFloat(num).toFixed(2).toLocaleString();
+    return parseFloat(num).toLocaleString();
+}
+
+function readCookie(key) {
+    key += '=';
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1, cookie.length);
+        }
+        if (cookie.indexOf(key) == 0) {
+            return cookie.substring(key.length, cookie.length);
+        }
+    }
+    return null;
+}
+
+function redirectAlert() {
+    var alertEl = document.getElementsByClassName('js-alert')[0];
+    alertEl.classList.add('-show');
 }
