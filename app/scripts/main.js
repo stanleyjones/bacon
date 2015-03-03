@@ -94,12 +94,9 @@ function BaconHandler(opts) {
 }
 
 function toCurrency(num) {
-    return parseFloat(num).toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+    return '$' + (parseInt(parseFloat(num) * 100) / 100)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function readCookie(key) {
