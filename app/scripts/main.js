@@ -1,6 +1,6 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'localhost';//'d.caffeine.io';
+var socketDomain = 'd.caffeine.io';
 var socketPort = 8888;
 
 // CONFIG ----------------------------------------
