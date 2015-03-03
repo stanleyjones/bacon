@@ -1,6 +1,6 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'd.caffeine.io';
+var socketDomain = 'localhost';//'d.caffeine.io';
 var socketPort = 8888;
 
 // CONFIG ----------------------------------------
@@ -17,7 +17,6 @@ ws.onmessage = function (msg) {
     baconHandler.receiveBacon(JSON.parse(msg.data));
 };
 
-
 // HELPERS ----------------------------------------
 
 function BaconHandler(el) {
@@ -27,36 +26,49 @@ function BaconHandler(el) {
     el = document.getElementsByClassName(el)[0];
 
     var total = 0;
+    var counter = 0;
     var buffer = 0;
     var queue = [];
-    var denominations = [1, 5, 10, 20, 50, 100];
+    var denominations = [0.01, 0.05, 0.10, 0.25, 0.50];
 
-    function weighBacon() {
-        if (buffer < 1) return;
+    function init(earnings) {
+        total = counter = earnings;
+        el.innerHTML = toCurrency(counter);
+    }
 
-        denominations.reverse().forEach(function (val) {
+    function sliceBacon(bacon) {
+        buffer += bacon;
+
+        var slice = function (val) {
             if (buffer > val) {
                 queue.push(val);
                 buffer -= val;
+                total += val;
+                return true;
             }
-        });
+            return false;
+        };
+        while (buffer > 0.01) {
+            denominations.reverse().some(slice);
+        }
     }
 
     function rainBacon() {
         if (!queue.length) return;
 
         var val = queue.shift();
+        total += val;
 
         var fragment = document.createDocumentFragment();
         var bacon = fragment.appendChild(document.createElement('div'));
         bacon.className = 'bacon';
-        bacon.appendChild(document.createTextNode(val));
+        bacon.appendChild(document.createTextNode(val * 100 + '¢'));
         bacon.style.left = Math.floor(Math.random() * 60 + 20) + 'vw';
         document.body.insertBefore(bacon, document.body.firstChild);
 
         setTimeout(function () {
-            total += val;
-            el.innerHTML = parseInt(total, 10);
+            counter += val;
+            el.innerHTML = toCurrency(counter);
             bacon.parentNode.removeChild(bacon);
         }, 5000);
     }
@@ -64,13 +76,17 @@ function BaconHandler(el) {
     // Public
 
     this.start = function () {
-        console.log('starting...');
-        setInterval(rainBacon, 1000);
+        setInterval(rainBacon, 250);
     };
 
     this.receiveBacon = function (msg) {
-        buffer += parseFloat(msg.earnings) || 0;
-        weighBacon();
+        var earnings = parseFloat(msg.earnings);
+        if (!total) { init(earnings); }
+        sliceBacon(earnings - total);
     };
 
+}
+
+function toCurrency(num) {
+    return parseFloat(num).toFixed(2).toLocaleString();
 }

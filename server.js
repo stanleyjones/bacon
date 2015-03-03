@@ -1,14 +1,16 @@
 // WEB SOCKET SERVER ----------------------------------------
 
 var ws = require('ws');
-var port = 8080;
+var port = 8888;
 
 var wss = new ws.Server({port: port});
 wss.on('connection', function (ws) {
 
-    // Send random fake bacon
+    var earnings = 100 * Math.random();
+
     var sendBacon = setInterval(function () {
-        ws.send(JSON.stringify({bacon: (10 * Math.random()).toFixed(2)}));
+        earnings += (Math.random() / 10);
+        ws.send(JSON.stringify({company: 'Chartboost', earnings: earnings}));
     }, 1000);
 
     ws.on('open', function (msg) {
