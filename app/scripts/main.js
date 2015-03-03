@@ -19,10 +19,6 @@ ws.onopen = function () {
     baconHandler.start();
 };
 
-ws.onerror = function (msg) {
-    console.log('ws error:', msg.data);
-};
-
 ws.onmessage = function (msg) {
     baconHandler.receiveBacon(JSON.parse(msg.data));
 };
