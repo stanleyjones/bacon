@@ -6,7 +6,10 @@ var socketPort = 8888;
 // CONFIG ----------------------------------------
 
 var ws = new WebSocket('ws://' + socketDomain + ':' + socketPort + '/account');
-var baconHandler = new BaconHandler('js-total');
+var baconHandler = new BaconHandler({
+    company: 'js-company',
+    counter: 'js-total'
+});
 
 // MAIN ----------------------------------------
 
@@ -19,56 +22,55 @@ ws.onmessage = function (msg) {
 
 // HELPERS ----------------------------------------
 
-function BaconHandler(el) {
+function BaconHandler(opts) {
+    opts = opts || {};
 
     // Private
 
-    el = document.getElementsByClassName(el)[0];
+    companyEl = document.getElementsByClassName(opts.company)[0];
+    counterEl = document.getElementsByClassName(opts.counter)[0];
 
     var total = 0;
     var counter = 0;
     var buffer = 0;
-    var queue = [];
-    var denominations = [0.01, 0.05, 0.10, 0.25, 0.50];
+    var vals = [0.01, 0.05, 0.10, 0.25, 0.50].reverse();
 
-    function init(earnings) {
+    function init(company, earnings) {
         total = counter = earnings;
-        el.innerHTML = toCurrency(counter);
+        companyEl.innerHTML = company;
+        counterEl.innerHTML = toCurrency(counter);
     }
 
-    function sliceBacon(bacon) {
-        buffer += bacon;
+    function weighBacon() {
+        var slice = sliceBacon();
+        if (slice) { rainBacon(slice); }
+    }
 
-        var slice = function (val) {
+    function sliceBacon() {
+        var slice;
+        for (var i = 0; i < vals.length; i++) {
+            var val = vals[i];
             if (buffer > val) {
-                queue.push(val);
+                slice = val;
                 buffer -= val;
                 total += val;
-                return true;
+                break;
             }
-            return false;
-        };
-        while (buffer > 0.01) {
-            denominations.reverse().some(slice);
         }
+        return slice;
     }
 
-    function rainBacon() {
-        if (!queue.length) return;
-
-        var val = queue.shift();
-        total += val;
-
+    function rainBacon(slice) {
         var fragment = document.createDocumentFragment();
         var bacon = fragment.appendChild(document.createElement('div'));
         bacon.className = 'bacon';
-        bacon.appendChild(document.createTextNode(val * 100 + '¢'));
+        bacon.appendChild(document.createTextNode(slice * 100 + '¢'));
         bacon.style.left = Math.floor(Math.random() * 60 + 20) + 'vw';
         document.body.insertBefore(bacon, document.body.firstChild);
 
         setTimeout(function () {
-            counter += val;
-            el.innerHTML = toCurrency(counter);
+            counter += slice;
+            counterEl.innerHTML = toCurrency(counter);
             bacon.parentNode.removeChild(bacon);
         }, 5000);
     }
@@ -76,15 +78,14 @@ function BaconHandler(el) {
     // Public
 
     this.start = function () {
-        setInterval(rainBacon, 250);
+        setInterval(weighBacon, 500);
     };
 
     this.receiveBacon = function (msg) {
         var earnings = parseFloat(msg.earnings);
-        if (!total) { init(earnings); }
-        sliceBacon(earnings - total);
+        if (!total) { init(msg.company, earnings); }
+        buffer += earnings - total;
     };
-
 }
 
 function toCurrency(num) {

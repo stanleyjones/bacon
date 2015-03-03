@@ -7,6 +7,17 @@ body {
     font: 300 48px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.company {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    opacity: 0.25;
+    text-align: center;
+}
+
 .counter {
     position: fixed;
     bottom: 0;
