@@ -1,6 +1,6 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'localhost';//'d.caffeine.io';
+var socketDomain = 'd.caffeine.io';
 var socketPort = 8888;
 
 // CONFIG ----------------------------------------
@@ -23,7 +23,7 @@ ws.onmessage = function (msg) {
     baconHandler.receiveBacon(JSON.parse(msg.data));
 };
 
-// HELPERS ----------------------------------------
+// BACONHANDLER ----------------------------------------
 
 function BaconHandler(opts) {
     opts = opts || {};
@@ -89,9 +89,11 @@ function BaconHandler(opts) {
         var company = msg.company || '';
 
         if (!total) { init(company, earnings); }
-        buffer += earnings - total;
+        buffer = earnings - total;
     };
 }
+
+// HELPERS ----------------------------------------
 
 function toCurrency(num) {
     return '$' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
