@@ -1,6 +1,6 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'd.caffeine.io';
+var socketDomain = 'localhost';//'d.caffeine.io';
 var socketPort = 8888;
 
 // CONFIG ----------------------------------------
@@ -94,9 +94,7 @@ function BaconHandler(opts) {
 }
 
 function toCurrency(num) {
-    return '$' + (parseInt(parseFloat(num) * 100) / 100)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return '$' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function readCookie(key) {
