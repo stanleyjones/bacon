@@ -94,7 +94,10 @@ function BaconHandler(opts) {
 }
 
 function toCurrency(num) {
-    return parseFloat(num).toLocaleString();
+    return parseFloat(num).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
 }
 
 function readCookie(key) {
