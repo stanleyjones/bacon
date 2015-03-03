@@ -96,7 +96,9 @@ function BaconHandler(opts) {
 function toCurrency(num) {
     return parseFloat(num).toLocaleString('en-US', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
     });
 }
 
