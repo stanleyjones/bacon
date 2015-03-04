@@ -174,7 +174,6 @@ a {
     }
 }
 
-
 @keyframes rain {
     0% {transform: translate(-50%, 0) rotate(0deg);}
     100% {transform: translate(-50%, 100vh) rotate(360deg);}
@@ -183,4 +182,20 @@ a {
 @keyframes clouds {
     0% {transform: translate(0, 0);}
     100% {transform: translate(calc(100vw + 300px), 0);}
+}
+
+// iPad Hack
+
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+    @keyframes rain {
+        0% {transform: translate(-50%, 0) rotate(0deg);}
+        100% {transform: translate(-50%, 1024px) rotate(360deg);}
+    }
+}
+
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape){
+    @keyframes rain {
+        0% {transform: translate(-50%, 0) rotate(0deg);}
+        100% {transform: translate(-50%, 768px) rotate(360deg);}
+    }
 }
