@@ -1,11 +1,11 @@
 // REQUIRES ----------------------------------------
 
-var socketDomain = 'd.caffeine.io';
+var socketDomain = 'pork.chartboost.com';
 var socketPort = 8888;
 
 // CONFIG ----------------------------------------
 
-var ws = new WebSocket('ws://' + socketDomain + ':' + socketPort + '/account');
+var ws = new WebSocket('wss://' + socketDomain + ':' + socketPort + '/account');
 var baconHandler = new BaconHandler({
     company: 'js-company',
     counter: 'js-total'
